@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '../../redux/todos/todoActions';
-import TodoForm from './TodoForm'
+import TodoForm from './TodoForm';
+import { v4 as uuid } from 'uuid';
+
 
 const UseTodoForm = (props) => {
     const [showModal, setShowModal] = useState(false);
+    const newId = uuid();
 
     const [todo, setTodo] = useState({
+        id: "",
         title: "",
         description: "",
         created_date: new Date().toISOString().slice(0, 10),
         due_date: "",
-        status: "pending"
+        status: "Pending"
     })
 
     const handleInputChange = (evt) => {
@@ -19,6 +23,7 @@ const UseTodoForm = (props) => {
 
       setTodo(prevState => ({
         ...prevState,
+        id: newId,
         [name]: value
       }))
     }
@@ -27,12 +32,17 @@ const UseTodoForm = (props) => {
     
     const handleSubmit = () => {
       const payload = {...todo}
-      
       props.addTodo(payload)
     }
 
   return (
-    <TodoForm todo={todo} handleInputChange={handleInputChange} handleSubmit={handleSubmit} showModal={showModal} setShowModal={setShowModal} />
+    <TodoForm 
+      todo={todo} 
+      handleInputChange={handleInputChange} 
+      handleSubmit={handleSubmit} 
+      setShowModal={setShowModal}
+      showModal={showModal}  
+    />
   )
 }
 

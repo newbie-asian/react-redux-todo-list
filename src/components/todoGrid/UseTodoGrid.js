@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Text } from 'grommet';
 import TodoGrid from './TodoGrid';
+import { actionCreators } from '../../redux/todos/todoActions';
 
 const UseTodoGrid = (props) => {
     const default_column = [
@@ -13,15 +14,6 @@ const UseTodoGrid = (props) => {
         {
             property: 'title',
             header: 'Title',
-            // render: datum => (
-            //     <Box pad={{ vertical: 'xsmall' }}>
-            //         <Meter
-            //             values={[{ value: datum.percent }]}
-            //             thickness="small"
-            //             size="small"
-            //         />
-            //     </Box>
-            // ),
         },
         {
             property: 'description',
@@ -45,15 +37,19 @@ const UseTodoGrid = (props) => {
         },
     ]
 
-   
+    const handleCompleteTodo = (id) => {
+        props.completeTodo(id)
+    }
 
-    const temp_data = props.todos
+    const handleDeleteTodo = (id) => {
+        console.log("%c Line:41 🍯 id", "color:#3f7cff", id);
+        props.deleteTodo(id);
+    }
 
   return (
-    <TodoGrid default_column={default_column} temp_data={temp_data} />
+    <TodoGrid default_column={default_column} todos={props.todos} handleDeleteTodo={handleDeleteTodo} handleCompleteTodo={handleCompleteTodo} />
   )
 }
-
 
 const mapStateToProps = state => {
     return {
@@ -61,4 +57,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(UseTodoGrid)
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteTodo: payload => dispatch(actionCreators.deleteTodo(payload)),
+        completeTodo: payload => dispatch(actionCreators.completeTodo(payload))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UseTodoGrid)

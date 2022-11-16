@@ -8,13 +8,13 @@ const TodoForm = (props) => {
 
   return (
     <Box>
-        <Button primary label="Add Todo" onClick={() => setShowModal(true)} />
+        <Button primary label="Add New Todo" onClick={() => setShowModal(true)} style={{backgroundColor: "#3B82F6", border: "none", padding: ".8rem 0", borderRadius: "2rem"}}/>
           {showModal && (
             <Layer
               onEsc={() => setShowModal(false)}
               onClickOutside={() => setShowModal(false)}
               modal={true}
-              style={{padding: "2rem", minWidth: "600px"}}
+              style={{padding: "2.5rem", minWidth: "600px"}}
             >
               <Button label={<BsXLg />} onClick={() => setShowModal(false)} alignSelf="end" style={{border: "none"}} margin={{bottom: "small"}}/>
 
@@ -31,13 +31,16 @@ const TodoForm = (props) => {
               </FormField>
 
               <Button 
-              label="Add" 
-              onClick={() => {
-                handleSubmit() 
-                setShowModal(false)
-              }}  
-              alignSelf="center" 
-              margin={{top: "2rem"}}/>
+                label="Add" 
+                primary
+                onClick={() => {
+                  handleSubmit() 
+                  setShowModal(false)
+                }}  
+                alignSelf="center" 
+                margin={{top: "2rem"}}
+                style={{backgroundColor: "#10B981", border: "none", padding: ".8rem 0", minWidth: "10rem", borderRadius: "2rem"}}
+              />
 
             </Layer>
           )}
