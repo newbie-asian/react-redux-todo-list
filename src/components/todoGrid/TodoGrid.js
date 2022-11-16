@@ -1,18 +1,24 @@
 import React from 'react';
-import { DataTable, Text, Meter, Box } from 'grommet';
+import { DataTable, Text, Meter, Box, Button } from 'grommet';
+import { BsFillCheckCircleFill, BsPencilSquare, BsTrash } from 'react-icons/bs'
+
 
 const TodoGrid = (props) => {
-    const { default_column, default_actions } = props;
+    const { default_column, temp_data } = props;
     
     return (
         <DataTable
             columns={default_column}
             rowProps={{ "primary-key-value": { pad: "2rem" } }}
-            data={[
-                { id: "01", title: "Buy rice", description: "Go to Metro to buy rice", created_date: "11/17/2022", due_date: "11/17/2022", status: "Pending", actions: default_actions },
-                { id: "02", title: "Buy rice", description: "Go to Metro to buy rice", created_date: "11/17/2022", due_date: "11/17/2022", status: "Pending" },
-                { id: "03", title: "Buy rice", description: "Go to Metro to buy rice", created_date: "11/17/2022", due_date: "11/17/2022", status: "Pending" },
-            ]}
+            data={temp_data.map((data, index) => {
+                return {...data, id: index + 1, actions: (
+                    <Box direction='row' gap='1rem'>
+                        <Button label={<BsFillCheckCircleFill />} plain={true} />
+                        <Button label={<BsPencilSquare />} plain={true}/>
+                        <Button label={<BsTrash />} plain={true}/>
+                    </Box>
+                )}
+            })}
         />
     )
 }

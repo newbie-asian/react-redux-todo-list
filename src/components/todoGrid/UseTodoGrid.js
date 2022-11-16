@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, Text } from 'grommet'
-import { BsFillCheckCircleFill, BsPencilSquare, BsTrash } from 'react-icons/bs'
-import TodoGrid from './TodoGrid'
+import { connect } from 'react-redux';
+import { Text } from 'grommet';
+import TodoGrid from './TodoGrid';
 
-const UseTodoGrid = () => {
+const UseTodoGrid = (props) => {
     const default_column = [
         {
             property: 'id',
@@ -45,15 +45,20 @@ const UseTodoGrid = () => {
         },
     ]
 
-    const default_actions = [
-        <Button label={<BsFillCheckCircleFill />} plain={true} />,
-        <Button label={<BsPencilSquare />} plain={true}/>,
-        <Button label={<BsTrash />} plain={true}/>
-    ]
+   
+
+    const temp_data = props.todos
 
   return (
-    <TodoGrid default_column={default_column} default_actions={default_actions} />
+    <TodoGrid default_column={default_column} temp_data={temp_data} />
   )
 }
 
-export default UseTodoGrid
+
+const mapStateToProps = state => {
+    return {
+        todos: state.todos
+    }
+}
+
+export default connect(mapStateToProps)(UseTodoGrid)

@@ -1,4 +1,4 @@
-import { FETCH_ALL_TODOS, ADD_NEW_TODO, UPDATE_TODO, DELETE_TODO } from "./actionTypes";
+import { FETCH_ALL_TODOS, ADD_NEW_TODO, UPDATE_TODO, DELETE_TODO } from "./todoTypes";
 
 export const actionCreators = {
     fetchTodos: (payload) => {

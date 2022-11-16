@@ -3,7 +3,7 @@ import {Box, Button, Layer, FormField, DateInput, TextInput, TextArea} from 'gro
 import { BsXLg } from "react-icons/bs"; 
 
 const TodoForm = (props) => {
-  const { todo, handleInputChange, showModal, setShowModal } = props;
+  const { todo, handleInputChange, handleSubmit, showModal, setShowModal } = props;
 
 
   return (
@@ -19,18 +19,25 @@ const TodoForm = (props) => {
               <Button label={<BsXLg />} onClick={() => setShowModal(false)} alignSelf="end" style={{border: "none"}} margin={{bottom: "small"}}/>
 
               <FormField label="Title">
-                <TextInput placeholder="Title" />
+                <TextInput placeholder="Title" name='title' value={todo.title} onChange={handleInputChange} />
               </FormField>
 
               <FormField label="Description">
-                <TextArea placeholder='Description' />
+                <TextArea placeholder='Description' name='description' value={todo.description} onChange={handleInputChange} />
               </FormField>
 
               <FormField label="Due Date">
-                <DateInput />
+                <TextInput type="date" min={new Date().toISOString().slice(0, 10)} name='due_date' value={todo.due_date} format="mm/dd/yyyy" onChange={handleInputChange} />
               </FormField>
 
-              <Button label="Add" onClick={() => setShowModal(false)}  alignSelf="center" margin={{top: "2rem"}}/>
+              <Button 
+              label="Add" 
+              onClick={() => {
+                handleSubmit() 
+                setShowModal(false)
+              }}  
+              alignSelf="center" 
+              margin={{top: "2rem"}}/>
 
             </Layer>
           )}
